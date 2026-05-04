@@ -33,7 +33,7 @@ export const RightSection = () => {
 
         //fetch API
         await fetch(
-            'http://localhost:8080/user/login',
+            'http://localhost:8080/users/login',
             {
                 method: 'POST',
                 headers: {
