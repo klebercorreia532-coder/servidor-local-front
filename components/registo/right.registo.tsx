@@ -6,10 +6,11 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
+import{toast} from "sonner";
 
 export const RightSection = () => {
     //useState
-    const [name, setName] = useState("");
+    const [nome, setNome] = useState("");
     const [numeroIdentificado, setNumeroIdentificado] = useState("");
     const [dataNascimento, setDataNascimento] = useState("");
     const [email, setEmail] = useState("");
@@ -19,11 +20,11 @@ export const RightSection = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
 
-    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const changeNome = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value) {
-            setName(e.target.value);
+            setNome(e.target.value);
         } else {
-            setName("");
+            setNome("");
         }
     };
     const changeNumeroIdentificado = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,25 +88,33 @@ export const RightSection = () => {
         e.preventDefault();
 
         //fetch API
-        await fetch("http://localhost:8080/users/create", {
+        const response = await fetch("http://localhost:8080/user/create", {
             method: "POST",
-            headers: {
+            headers: { 
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: name,
-                numeroIdentificado: numeroIdentificado,
-                dataNascimento: dataNascimento,
+                nome: nome,
+                numero_identificado: numeroIdentificado,
+                data_nascimento: dataNascimento,
                 pais: pais,
                 localidade: localidade,
                 telefone: telefone,
                 email: email,
                 password: password,
-                role: role,
+                role: "cliente",
+                enabled: true,
             }),
-        }).then((response) => {
-            console.log(response.json());
         });
+        if (response.status === 200) {
+            toast.success("Registration successful!");
+
+            if(typeof window !== "undefined"){
+            window.location.href = "/login";
+        }
+        } else {
+            toast.error("Registration failed!");
+        }
     };
 
     return (
@@ -123,8 +132,8 @@ export const RightSection = () => {
                                 type="text"
                                 placeholder="Your name"
                                 className="py-2 h-10 text-lg"
-                                value={name}
-                                onChange={changeName}
+                                value={nome}
+                                onChange={changeNome}
                             />
                         </div>
                         <div className="flex flex-col gap-2">

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const RightSection = () => {
     //useState
@@ -32,73 +33,83 @@ export const RightSection = () => {
         e.preventDefault();
 
         //fetch API
-        await fetch(
-            'http://localhost:8080/users/login',
+        const response = await fetch(
+            'http://localhost:8080/user/login',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+
                     email: email,
                     password: password,
                 }),
+            })
+        if (response.status === 200) {
+            toast.success('Login successful!');
+
+            const responseData = await response.json();
+
+            console.log("dados recebidos:", responseData);
+
+            if (typeof window !== 'undefined') {
+                // window.location.href = '/home';
             }
-        ).then((response) => {
-            console.log(response.json())
+        } else {
+            toast.error('Email or password is incorrect!');
+        }
+    };
 
-        })
-    }
+    return (
+        <div className="w-1/2 flex flex-col justify-center ">
+            <Card className="h-ful flex-col justify-center px-14 gap-16">
+                <CardHeader>
+                    <span className="text-5xl font-bold">Login</span>
+                </CardHeader>
 
-        return (
-            <div className="w-1/2 flex flex-col justify-center ">
-                <Card className="h-ful flex-col justify-center px-14 gap-16">
-                    <CardHeader>
-                        <span className="text-5xl font-bold">Login</span>
-                    </CardHeader>
+                <CardContent>
+                    <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-2">
+                            <Label>Email</Label>
+                            <Input
+                                type="text"
+                                placeholder="example@email.com"
+                                className="py-2 h-10 text-lg"
+                                value={email}
+                                onChange={changeEmail}
 
-                    <CardContent>
-                        <div className="flex flex-col gap-5">
-                            <div className="flex flex-col gap-2">
-                                <Label>Email</Label>
-                                <Input
-                                    type="text"
-                                    placeholder="example@email.com"
-                                    className="py-2 h-10 text-lg"
-                                    value={email}
-                                    onChange={changeEmail}
-
-                                />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <Label>Password</Label>
-                                
-                                <Input
-                                    type="password"
-                                    placeholder="Your password"
-                                    className="py-2 h-10 text-lg"
-                                    value={password}
-                                    onChange={changePassword}
-                                />
-                            </div>
-
-                            <Button
-                                onClick={handleLogin}
-                                className="bg-[#13A4EC] rounded-md text-white font-bold py-3 drop-shadow-lg drop-shadow-gray-500">
-                                Login
-                            </Button>
+                            />
                         </div>
-                        <div>
-                            <span className="text-sm text-gry-500"> Don`t have an account yet?</span>
-                            <Link href="/registo" className="text-[#13A4EC] font-semibold">
-                                Create Account
-                            </Link>
+                        <div className="flex flex-col gap-2">
+                            <Label>Password</Label>
+
+                            <Input
+                                type="password"
+                                placeholder="Your password"
+                                className="py-2 h-10 text-lg"
+                                value={password}
+                                onChange={changePassword}
+                            />
                         </div>
-                    </CardContent>
-                </Card>
-            </div>
-        );
-    }
+
+                        <Button
+                            onClick={handleLogin}
+                            className="bg-[#13A4EC] rounded-md text-white font-bold py-3 drop-shadow-lg drop-shadow-gray-500">
+                            Login
+                        </Button>
+                    </div>
+                    <div>
+                        <span className="text-sm text-gry-500"> Don`t have an account yet?</span>
+                        <Link href="/registo" className="text-[#13A4EC] font-semibold">
+                            Create Account
+                        </Link>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}
 
 
 
