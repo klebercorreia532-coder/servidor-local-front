@@ -7,6 +7,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useState } from "react";
 import { toast } from "sonner";
+import {setCookie} from "nookies"
+import path from "path";
 
 export const RightSection = () => {
     //useState
@@ -53,8 +55,16 @@ export const RightSection = () => {
 
             console.log("dados recebidos:", responseData);
 
+                setCookie(null, 'token', responseData.token, {
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                }); 
+                setCookie(null, 'user',JSON.stringify(responseData.user),{
+                    maxAge: 30 * 24 * 60 * 60,
+                    path: '/',
+                }); 
             if (typeof window !== 'undefined') {
-                // window.location.href = '/home';
+                window.location.href = '/home';
             }
         } else {
             toast.error('Email or password is incorrect!');

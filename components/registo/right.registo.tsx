@@ -149,7 +149,7 @@ export const RightSection = () => {
                         <div className="flex flex-col gap-2">
                             <Label>Data de Nascimento</Label>
                             <Input
-                                type="date"
+                                type="text"
                                 placeholder="Data de Nascimento"
                                 className="py-2 h-10 text-lg"
                                 value={dataNascimento}
