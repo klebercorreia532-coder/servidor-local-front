@@ -6,12 +6,14 @@ interface categoriaType {
     id: number;
     name: string;
     icone: string;
+
 }
 interface PedidoCardProps {
     title: string;
     description: string;
     image: string;
     category: categoriaType;
+    preco_hora: number;
 }
 
 
@@ -54,7 +56,7 @@ export const PedidoCard = (pedidoCardProps: PedidoCardProps) => {
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
                         Starting at
                     </p>
-                    <p className="text-2xl font-black text-slate-800">$89.00</p>
+                    <p className="text-2xl font-black text-slate-800">${pedidoCardProps.preco_hora.toFixed(2)}</p>
                 </div>
                 <Button className="bg-blue-500 hover:bg-blue-600 rounded-xl px-4 py-2 font-bold h-auto">
                     Browse Providers
