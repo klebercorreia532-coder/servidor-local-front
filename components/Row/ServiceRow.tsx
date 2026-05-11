@@ -1,16 +1,25 @@
-import { Service } from "../types/service";
+import { Service } from "@/app/type/service";
 
 type Props = {
     service: Service;
     selected: number[];
     urgent: number[];
+
     toggle: (
         id: number,
         list: number[],
-        setter: any
+        setter: React.Dispatch<
+            React.SetStateAction<number[]>
+        >
     ) => void;
-    setSelected: any;
-    setUrgent: any;
+
+    setSelected: React.Dispatch<
+        React.SetStateAction<number[]>
+    >;
+
+    setUrgent: React.Dispatch<
+        React.SetStateAction<number[]>
+    >;
 };
 
 export default function ServiceRow({
@@ -25,6 +34,7 @@ export default function ServiceRow({
 
     return (
         <tr className="border-t">
+            
             <td className="p-5">
                 <input
                     type="checkbox"
@@ -39,6 +49,7 @@ export default function ServiceRow({
                 />
             </td>
 
+            
             <td className="py-5 flex items-center gap-4">
                 <div className="bg-blue-100 p-3 rounded-xl">
                     <Icon className="text-blue-500" />
@@ -47,16 +58,7 @@ export default function ServiceRow({
                 {service.name}
             </td>
 
-            <td>
-                <select className="border rounded-lg px-4 py-3 w-[400px]">
-                    <option>Select a provider...</option>
-
-                    {service.providers.map((p) => (
-                        <option key={p}>{p}</option>
-                    ))}
-                </select>
-            </td>
-
+            
             <td>
                 <input
                     type="checkbox"

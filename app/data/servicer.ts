@@ -4,8 +4,9 @@ import {
     Hammer,
     Brush,
 } from "lucide-react";
+import { Service } from "../type/service";
 
-import { Service } from "../types/service";
+
 
 export const services: Service[] = [
     {

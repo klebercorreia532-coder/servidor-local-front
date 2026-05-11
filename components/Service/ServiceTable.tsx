@@ -1,5 +1,8 @@
-import ServiceRow from "./ServiceRow";
-import { Service } from "../types/service";
+import { Service } from "@/app/type/service";
+import ServiceRow from "../Row/ServiceRow";
+
+
+
 
 type Props = {
     services: Service[];
@@ -8,10 +11,10 @@ type Props = {
     toggle: (
         id: number,
         list: number[],
-        setter: any
+        setter: React.Dispatch<React.SetStateAction<number[]>>
     ) => void;
-    setSelected: any;
-    setUrgent: any;
+    setSelected: React.Dispatch<React.SetStateAction<number[]>>;
+    setUrgent: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
 export default function ServiceTable({
@@ -29,7 +32,6 @@ export default function ServiceTable({
                     <tr>
                         <th className="p-5">SELECT</th>
                         <th>SERVICE NAME</th>
-                        <th>SERVICE PROVIDER</th>
                         <th>URGENT?</th>
                     </tr>
                 </thead>

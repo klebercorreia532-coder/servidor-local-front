@@ -193,12 +193,14 @@
 
 import { useState } from "react";
 
-import Header from "./components/header/Header";
-import ServiceTable from "./components/ServiceTable";
-import NotesSection from "./components/NotesSection";
-import SubmitButton from "./components/SubmitButton";
 
-import { services } from "./data/services";
+
+
+import Header from "@/components/header/Header";
+import ServiceTable from "@/components/Service/ServiceTable";
+import NotesSection from "@/components/Notes/NotesSection";
+import SubmitButton from "@/components/Submit/SubmitButton";
+import { services } from "@/app/data/servicer";
 
 export default function RequestPage() {
     const [selected, setSelected] = useState<number[]>([]);
@@ -206,17 +208,16 @@ export default function RequestPage() {
     const [notes, setNotes] = useState("");
 
     const toggle = (
-        id: number,
-        list: number[],
-        setter: any
-    ) => {
-        setter(
-            list.includes(id)
-                ? list.filter((x) => x !== id)
-                : [...list, id]
-        );
-    };
-
+    id: number,
+    list: number[],
+    setter: React.Dispatch<React.SetStateAction<number[]>>
+) => {
+    setter(
+        list.includes(id)
+            ? list.filter((x) => x !== id)
+            : [...list, id]
+    );
+};
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
