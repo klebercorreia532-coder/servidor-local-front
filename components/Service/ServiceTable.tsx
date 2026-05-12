@@ -5,23 +5,29 @@ import ServiceRow from "../Row/ServiceRow";
 
 
 type Props = {
-    services: Service[];
-    selected: number[];
-    urgent: number[];
+    services: Service [];
+    selected: number | null;
+    urgent: number | null;
     toggle: (
         id: number,
         list: number[],
-        setter: React.Dispatch<React.SetStateAction<number[]>>
-    ) => void;
-    setSelected: React.Dispatch<React.SetStateAction<number[]>>;
-    setUrgent: React.Dispatch<React.SetStateAction<number[]>>;
+        setter: React.Dispatch<
+            React.SetStateAction<number[]>
+        >    ) => void;
+    setSelected: React.Dispatch<
+        React.SetStateAction<number | null>
+    >;
+    setUrgent: React.Dispatch<
+        React.SetStateAction<number | null>
+    >;
 };
+
 
 export default function ServiceTable({
     services,
     selected,
     urgent,
-    toggle,
+    
     setSelected,
     setUrgent,
 }: Props) {
@@ -43,7 +49,6 @@ export default function ServiceTable({
                             service={service}
                             selected={selected}
                             urgent={urgent}
-                            toggle={toggle}
                             setSelected={setSelected}
                             setUrgent={setUrgent}
                         />

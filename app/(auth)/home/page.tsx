@@ -1,5 +1,5 @@
 import { PedidoCard } from "@/components/core/pedido-card";
-
+import {Navbar } from "@/components/nov/novbar";
 
 const pedidosFake = [
     {
@@ -64,8 +64,7 @@ const pedidosFake = [
 export default function HomePage() {
     return (
         <div className="min-h-screen bg-slate-50 p-8">
-
-
+            <Navbar/>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 {pedidosFake.map((pedido) => (

@@ -203,8 +203,8 @@ import SubmitButton from "@/components/Submit/SubmitButton";
 import { services } from "@/app/data/servicer";
 
 export default function RequestPage() {
-    const [selected, setSelected] = useState<number[]>([]);
-    const [urgent, setUrgent] = useState<number[]>([]);
+    const [selected, setSelected] = useState<number | null>(null);
+    const [urgent, setUrgent] = useState<number | null>(null);
     const [notes, setNotes] = useState("");
 
     const toggle = (

@@ -2,23 +2,17 @@ import { Service } from "@/app/type/service";
 
 type Props = {
     service: Service;
-    selected: number[];
-    urgent: number[];
+    selected: number | null;
+    urgent: number | null;
 
-    toggle: (
-        id: number,
-        list: number[],
-        setter: React.Dispatch<
-            React.SetStateAction<number[]>
-        >
-    ) => void;
+    
 
     setSelected: React.Dispatch<
-        React.SetStateAction<number[]>
+        React.SetStateAction<number | null>
     >;
 
     setUrgent: React.Dispatch<
-        React.SetStateAction<number[]>
+        React.SetStateAction<number | null>
     >;
 };
 
@@ -26,7 +20,6 @@ export default function ServiceRow({
     service,
     selected,
     urgent,
-    toggle,
     setSelected,
     setUrgent,
 }: Props) {
@@ -37,14 +30,11 @@ export default function ServiceRow({
             
             <td className="p-5">
                 <input
-                    type="checkbox"
-                    checked={selected.includes(service.id)}
+                    type="radio"
+                    name="servicoSelecionado"
+                    checked={selected === service.id}
                     onChange={() =>
-                        toggle(
-                            service.id,
-                            selected,
-                            setSelected
-                        )
+                        setSelected(service.id)
                     }
                 />
             </td>
@@ -61,14 +51,12 @@ export default function ServiceRow({
             
             <td>
                 <input
-                    type="checkbox"
-                    checked={urgent.includes(service.id)}
+                    type="radio"
+                    name="servicoUrgente"
+                    checked={urgent === service.id}
                     onChange={() =>
-                        toggle(
-                            service.id,
-                            urgent,
-                            setUrgent
-                        )
+                        setUrgent(service.id)
+                        
                     }
                 />
             </td>
