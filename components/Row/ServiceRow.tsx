@@ -5,8 +5,6 @@ type Props = {
     selected: number | null;
     urgent: number | null;
 
-    
-
     setSelected: React.Dispatch<
         React.SetStateAction<number | null>
     >;
@@ -23,11 +21,13 @@ export default function ServiceRow({
     setSelected,
     setUrgent,
 }: Props) {
+
     const Icon = service.icon;
 
     return (
         <tr className="border-t">
-            
+
+            {/* Selecionar serviço */}
             <td className="p-5">
                 <input
                     type="radio"
@@ -39,27 +39,29 @@ export default function ServiceRow({
                 />
             </td>
 
-            
+            {/* Nome + ícone */}
             <td className="py-5 flex items-center gap-4">
+
                 <div className="bg-blue-100 p-3 rounded-xl">
                     <Icon className="text-blue-500" />
                 </div>
 
-                {service.name}
+                <span>{service.name}</span>
+
             </td>
 
-            
-            <td>
+            {/* Serviço urgente */}
+            <td className="p-5">
                 <input
                     type="radio"
                     name="servicoUrgente"
                     checked={urgent === service.id}
                     onChange={() =>
                         setUrgent(service.id)
-                        
                     }
                 />
             </td>
+
         </tr>
     );
 }
