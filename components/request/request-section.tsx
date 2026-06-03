@@ -57,22 +57,14 @@ export const RequestSection = () => {
     const handlerequest = async () => {
         try {
             const cookies = parseCookies()
-            console.log(cookies)
-            console.log(cookies.user)
 
-            if (!cookies.user || cookies.user === "undefined") {
+            if (!cookies.user) {
                 toast.error("Utilizador não autenticado")
                 return
             }
 
-            let user
+            const user = JSON.parse(cookies.user)
 
-            try {
-                user = JSON.parse(cookies.user)
-            } catch {
-                toast.error("Cookie do utilizador inválido")
-                return
-            }
             if (!selectedService) {
                 toast.error("Selecione um serviço")
                 return
@@ -93,7 +85,7 @@ export const RequestSection = () => {
                 enabled: true
             }
 
-
+        
 
             const orcamentoResponse = await fetch(
                 "http://localhost:8080/orcamento/create",
@@ -114,8 +106,8 @@ export const RequestSection = () => {
 
             const orcamentoData = await orcamentoResponse.json()
 
-            console.log({ "dados do orçamento criado": orcamentoData })
-
+            console.log({"dados do orçamento criado": orcamentoData})
+            
             const payload = {
                 designacao: description || serviceSelected.name,
                 subtotal: "0",
@@ -132,7 +124,7 @@ export const RequestSection = () => {
             }
 
             const response = await fetch(
-                "http://localhost:8080/prestacaoservico/create",
+                "http://localhost:8080/prestacao-servico/create",
                 {
                     method: "POST",
                     headers: {
@@ -182,8 +174,8 @@ export const RequestSection = () => {
                     </div>
 
                     {/* CORREÇÃO AQUI: onValueChange e fallback para string vazia */}
-                    <RadioGroup
-                        value={selectedService?.toString() ?? ""}
+                    <RadioGroup 
+                        value={selectedService?.toString() ?? ""} 
                         onValueChange={(val) => setSelectedService(Number(val))}
                     >
                         {services.map((item) => (

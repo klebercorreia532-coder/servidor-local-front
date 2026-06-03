@@ -15,8 +15,7 @@ export const ServiceCard = ({
     price,
     image,
     priority = false,
-}:
-    ServiceCardProps) => {
+}: ServiceCardProps) => {
     return (
         <Card className="rounded-2xl overflow-hidden border shadow-sm hover:shadow-md transition bg-white">
             <div className="relative h-40 w-full">

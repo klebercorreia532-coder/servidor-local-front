@@ -1,16 +1,17 @@
 services:
   api:
-    build: 
-      context: ../Servidor-Local
+    build:
+      context: ../servidor-local
+      dockerfile: Dockerfile
     container_name: servidor-local
     ports:
-      - 8080:8080
+      - "8080:8080"
 
     networks:
       - marketplace-net
 
     environment:
-      - PORT=8000
+      - PORT=8080
       - NODE_ENV=development
 
   web:
@@ -19,18 +20,15 @@ services:
     container_name: servidor-local-front
     ports:
       - "3000:3000"
-
     networks:
       - marketplace-net
-
     depends_on:
       - api
-
     environment:
       - PORT=3000
       - NEXT_PUBLIC_DATA_API_URL=http://api:8080/graphql
-      - NEXT_PUBLIC_AUTH_API_URL=http://api:8080/
-
+      - NEXT_PUBLIC_IMAGES_API_URL=http://api:8080
+ 
 networks:
-  marketplace-net:
+  marketplace-net: 
     driver: bridge
